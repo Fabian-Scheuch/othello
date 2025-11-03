@@ -1,35 +1,26 @@
-# Grenzwertanalyse für `Board.result().tied`
+# Grenzwertanalyse von Board.result().tied
 
 ## Ziel
 
-Die Methode `Board.result()` gibt den aktuellen Spielstand zurück.  
-Das Feld `tied` zeigt an, ob das Spiel **unentschieden** geendet hat.
+Die Methode Board.result() zeigt den aktuellen Spielstand.  
+Mit dem Feld `tied` erkennt man, ob das Spiel unentschieden endet.
 
-Ziel der Grenzwertanalyse: Überprüfung von **tied** für:
+Zu prüfen:
 
-- Positivtest: `tied = true` (Spiel unentschieden)
-- angrenzende Äquivalenzklassen:
-  - Spiel noch nicht zu Ende (`finished = false`)
-  - Sieg Spieler 1 (`winner = 1`)
-  - Sieg Spieler 2 (`winner = 2`)
+- Positivfall: unentschieden (`tied = true`)
+- angrenzende Fälle: Spiel läuft noch, Spieler 1 gewinnt, Spieler 2 gewinnt
 
----
+## Äquivalenzklassen und Grenzwerte
 
-## Äquivalenzklassen / Grenzwerte
-
-| Klasse | Beschreibung                     | Erwartetes `tied` |
-| ------ | -------------------------------- | ----------------- |
-| G1     | Spiel noch nicht zu Ende         | false             |
-| G2     | Spiel beendet, Spieler 1 gewinnt | false             |
-| G3     | Spiel beendet, Spieler 2 gewinnt | false             |
-| G4     | Spiel beendet, Unentschieden     | true              |
-
----
+- Spiel läuft noch → `tied = false`
+- Spieler 1 gewinnt → `tied = false`
+- Spieler 2 gewinnt → `tied = false`
+- Spiel endet unentschieden → `tied = true`
 
 ## Testfälle
 
-- **Positivtest:** G4 → Board vollständig gefüllt, gleiche Anzahl Steine → `tied = true`
-- **Negativtests:**
-  - G1 → Spiel noch nicht beendet → `tied = false`
-  - G2 → Spieler 1 gewinnt → `tied = false`, `winner = 1`
-  - G3 → Spieler 2 gewinnt → `tied = false`, `winner = 2`
+- Positivtest: Board komplett gefüllt, gleiche Anzahl Steine → `tied = true`
+- Negativtests:
+  - Spiel noch nicht beendet → `tied = false`
+  - Spieler 1 gewinnt → `tied = false`, `winner = 1`
+  - Spieler 2 gewinnt → `tied = false`, `winner = 2`
