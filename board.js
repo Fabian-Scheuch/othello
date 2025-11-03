@@ -108,11 +108,11 @@ export class Board {
     }
     const validMoves = this.validMoves(player);
     const match = [...validMoves].filter(
-      (move) => move[0] == row && move[1] == col,
+      (move) => move[0] == row && move[1] == col
     );
     if (match.length < 1) {
       throw new RangeError(
-        `move [${row}/${col}] is not valid for player ${player}`,
+        `move [${row}/${col}] is not valid for player ${player}`
       );
     }
     const otherPlayer = this.opponent(player);
@@ -229,5 +229,18 @@ export class Board {
       return one;
     }
     throw RangeError(`illegal player ${player}`);
+  }
+
+  isValidMove(player, row, col) {
+    if (player !== 1 && player !== 2) return false;
+    if (row < 0 || row >= 8 || col < 0 || col >= 8) return false;
+    if (this.fields[row][col] !== 0) return false;
+
+    for (const move of this.validMoves(player)) {
+      if (move[0] === row && move[1] === col) {
+        return true;
+      }
+    }
+    return false;
   }
 }
